@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Layton Temple Site Tours @ViewData["Title"]</title>
+    <link rel="shortcut icon" type="image/jpg" href="~/img/moroni.png" />
+</head>
+
+<body>
+    <!--Navigation Bar-->
+    <div class="bg-dark text-white p-2">
+        <a asp-action="Index"><span class="navbar-brand m1-2">Layton Utah Temple Site Tours</span></a>
+        <div class="float-right p-1">
+            <a asp-action="ViewAppointments"><small class="navbar-text">Appointments</small></a>
+        </div>
+        <div class="float-right p-1">
+            <a asp-action="SignUp"><small class="navbar-text">Sign Up</small></a>
+        </div>
+    </div>
+
+    
+
+    <div class="row">
+        <!--Left Links to Church Websites-->
+        <div class="col-3 bg-dark text-white text-center card">
+            <h3>Come Learn With Us</h3>
+            <img class="container-fluid rounded-circle" src="~/img/biblejesus.jpg" />
+            <h4>Click the pictures to learn more!</h4>
+            <div class="row">
+                <div class="col">
+                    <a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/temples?lang=eng" target="_blank"><img class="rounded" width="150" src="~/img/generictemple.png" /></a>
+                </div>
+                <div class="col">
+                    <br />
+                    <br />
+                    <br />
+                    <h5>What are temples?</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <br />
+                    <br />
+                    <h5>What is the Book of Mormon?</h5>
+                </div>
+                <div class="col">
+                    <a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/book-of-mormon?lang=eng" target="_blank"><img class="rounded" width="150" src="~/img/bom.jpg" /></a>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col">
+                    <a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/jesus-christ?lang=eng" target="_blank"><img class="rounded" width="150" src="~/img/christicon.jpg" /></a>
+                </div>
+                <div class="col">
+                    <br />
+                    <br />
+                    <br />
+                    <h5>Who is Jesus Christ?</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9">
+            <h2 class="text-center">@ViewData["Header1"]</h2>
+            @RenderBody()
+        </div>
+    </div>
+    
+    <!--Footer with Church logo-->
+    <footer>
+        <div class="bg-dark text-white-50 p-1 justify-content-center row">
+                <div class="col-md-auto">
+                    <img class="rounded-lg" width="120" src="~/img/christ.jpg" />
+                </div>
+                <div class="col-md-auto">
+                    <br /><br /><br />
+                    <span class="text-sm-center align-text-bottom">The Wizards of Section 2 Group 6</span>
+                    <br />
+                    <span class="text-sm-center align-text-bottom">© 2021 by Intellectual People. All rights reserved.</span>
+                </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
