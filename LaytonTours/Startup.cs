@@ -27,6 +27,7 @@ namespace LaytonTours
         {
             services.AddControllersWithViews();
 
+            //Add context to database to establish connection with SQLite database
             services.AddDbContext<ToursDbContext>(options =>
             {
                 options.UseSqlite(Configuration["ConnectionStrings:ToursConnection"]);
