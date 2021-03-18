@@ -58,32 +58,34 @@ namespace LaytonTours.Controllers
         public IActionResult ViewAppointments()
         {
 
-            
-           // Iterate through and make sure any appointments in these times exist in the database, otherwise remove them 
-           foreach (Time t in times)
+            IEnumerable<Appointment> appointments = _repository.Appointments.OrderBy(a => a.AppointmentId);
+          
+
+
+            return View(appointments);
+        }
+
+        [HttpGet("SignUp")]
+        public IActionResult SignUp()
+        {
+            ViewBag.Times = times;
+
+            // Iterate through and make sure any appointments in these times exist in the database, otherwise remove them 
+            foreach (Time t in times)
             {
-                if (!_repository.Appointments.Any(a => a.AppointmentId == t.AppointmentID)) {
+                if (!_repository.Appointments.Any(a => a.AppointmentId == t.AppointmentID))
+                {
                     t.AppointmentID = null;
                 }
             }
 
-           ViewBag.Times = times;
-
-
-            return View();
-        }
-
-        [HttpGet("SignUp")]
-
-        public IActionResult SignUp()
-        {
             ViewBag.Times = times;
             // Uncomment once code is ready - return View(Time.getAvailableTimes());
             return View();
         }
 
          [HttpGet("signup/{timeID:int}")]
-        public IActionResult SignUp(int timeID)
+        public IActionResult Form(int timeID)
         {
             // Get time object from TimeID
             Time time = times.Find(i => i.TimeID == timeID);
@@ -113,8 +115,8 @@ namespace LaytonTours.Controllers
 
         }
 
-        [HttpPost("SignUp")]
-        public IActionResult SignUp(Appointment appointment)
+        [HttpPost("signup/{timeID:int}")]
+        public IActionResult Form(Appointment appointment)
         {
 
           
