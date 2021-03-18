@@ -117,17 +117,7 @@ namespace LaytonTours.Controllers
         public IActionResult SignUp(Appointment appointment)
         {
 
-            ViewBag.Times = times;
-            if (ModelState.IsValid)
-            {
-
-                return View("ViewAppointments");
-            }
-
-            return View();
-            // Uncomment once code is ready - return View(Time.getAvailableTimes());
-
-            
+          
             // If this appointment matches the ModelState, push to database
             if (ModelState.IsValid)
             {
