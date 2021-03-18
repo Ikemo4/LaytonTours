@@ -2,6 +2,7 @@
     ViewData["Title"] = "- Home";
     ViewData["Header1"] = "Experience the Spirit of the Lord";
 }
+
 <br />
 <div class="text-center">
     <img class="rounded" src="~/img/temple.jpg" />
@@ -20,6 +21,16 @@
     <li>Please park on Rosewood (west side of temple) and meet at the Visitors Center trailer</li>
     <li>Dress casual, except on Sunday</li>
 </ul>
+
+<ul>
+    @foreach (var time in ViewBag.Times)
+    {
+        <li>
+            @time.Date - @time.ScheduledTime
+        </li>
+    }
+</ul>
+
 <div class="text-center">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/gf_Diac7Mb8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
