@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "- Appointment Info";
+    ViewData["Header1"] = "Appointment Info";
+}
+
+@model LaytonTours.Models.Appointment
+<!--Form: Once the user has selected a time, they will fill out a form that has the time set
+(i.e. part of the form, but not editable), but also allows the user to enter their information:
+o Name of Group
+o Size of Group
+o Email Address
+o Phone Number (Optional)
+When the user submits the data, we want to store their contact information and update the
+database to show that time slot as taken. After submitting the form, the user should be
+returned to the Home Page.-->
+
+<form asp-action="Form" method="post">
+    <div>
+        <label asp-for="GroupName">Group Name:</label>
+        <input asp-for="GroupName" />
+    </div>
+
+    <div>
+        <label asp-for="GroupSize">Group Size:</label>
+        <input asp-for="GroupSize" />
+    </div>
+
+    <div>
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" />
+    </div>
+
+    <div>
+        <label asp-for="Phone">Phone (Optional):</label>
+        <input asp-for="Phone" />
+    </div>
+
+    <button type="submit">Book Your Appointment</button>
+
+</form>
