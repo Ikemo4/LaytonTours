@@ -80,8 +80,9 @@ namespace LaytonTours.Controllers
             ViewBag.Times = times;
             // Uncomment once code is ready - return View(Time.getAvailableTimes());
             return View();
+        }
 
-        [HttpGet("signup/{timeID:int}")]
+         [HttpGet("signup/{timeID:int}")]
         public IActionResult SignUp(int timeID)
         {
             // Get time object from TimeID
