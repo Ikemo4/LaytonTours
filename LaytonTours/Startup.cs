@@ -80,7 +80,7 @@ namespace LaytonTours
                 endpoints.MapDefaultControllerRoute();
             });
 
-            //SeedData.EnsurePopulated(app);
+            SeedData.EnsurePopulated(app);
         }
     }
 }
