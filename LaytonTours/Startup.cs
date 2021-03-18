@@ -33,7 +33,9 @@ namespace LaytonTours
                 options.UseSqlite(Configuration["ConnectionStrings:ToursConnection"]);
             });
 
+            
             services.AddScoped<ITourRepository, EFTourRepository>();
+            
 
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
@@ -65,16 +67,20 @@ namespace LaytonTours
 
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                //add more endpoints here
                 
+                endpoints.MapControllerRoute(
+                   "SignUp",
+                   "/signup/{timeID:int}",
+                   new { Controller = "Home", action = "SignUp" });
+
+
+                endpoints.MapDefaultControllerRoute();
             });
 
-            //SeedData.EnsurePopulated(app);
+            SeedData.EnsurePopulated(app);
         }
     }
 }
