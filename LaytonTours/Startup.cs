@@ -67,16 +67,17 @@ namespace LaytonTours
 
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
+                
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                //add more endpoints here
-                endpoints.MapControllerRoute(
-                   "signup",
-                   "{timeID:int}",
+                   "SignUp",
+                   "/signup/{timeID:int}",
                    new { Controller = "Home", action = "SignUp" });
+
+
+                endpoints.MapDefaultControllerRoute();
             });
 
             //SeedData.EnsurePopulated(app);

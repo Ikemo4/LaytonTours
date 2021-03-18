@@ -70,12 +70,13 @@ namespace LaytonTours.Controllers
         }
 
         [HttpGet("SignUp")]
+        [HttpGet("signup/{timeID:int}")]
         public IActionResult SignUp(int timeID)
         {
             // Get time object from TimeID
             Time time = times.Find(i => i.TimeID == timeID);
             // Check that this time is empty, otherwise send them back to the view appointments page.
-            if (time.AppointmentID!=null) { 
+            if (time!=null && time.AppointmentID==null) { 
             // Create a new apppointment and hook up the timeId to match the appointmentID
             // Ideally we will want to port this to the database to handle once we create a database object  for time
             Appointment appointment = new Appointment();
