@@ -14,6 +14,13 @@ namespace LaytonTours.Models
         public int? AppointmentID { get; set; }
         public string ScheduledTime { get; set; }
         public string Date { get; set; }
-        //getAvailableTimes method
+        public static IEnumerable<Time> Times { get; set; }
+        //getAvailableTimes method to display times for date
+        public IEnumerable<Time> GetAvailableTimes(string Date)
+        {
+            return (IEnumerable<Time> times
+                .Select(x => x.ScheduledTime)
+                .Where(x => x.Date == Date));
+        }
     }
 }

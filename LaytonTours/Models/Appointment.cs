@@ -19,7 +19,5 @@ namespace LaytonTours.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public int TimeID { get; set; }
-
-        //GetTime (from timeID)
     }
 }

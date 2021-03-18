@@ -11,6 +11,7 @@ namespace LaytonTours.Controllers
 {
     public class HomeController : Controller
     {
+
         
         private readonly ILogger<HomeController> _logger;
         private List<Time> times = new List<Time>();
@@ -29,6 +30,7 @@ namespace LaytonTours.Controllers
 
         // Used to generate times
         DateTime currentDate = DateTime.Now;
+
             int startTime = 4;
             int objectsCreated = 0;
 
@@ -44,7 +46,7 @@ namespace LaytonTours.Controllers
                     times.Add(newTime);
                 }
             }
-            
+
         }
 
         public IActionResult Index()
@@ -55,6 +57,7 @@ namespace LaytonTours.Controllers
 
         public IActionResult ViewAppointments()
         {
+
             
            // Iterate through and make sure any appointments in these times exist in the database, otherwise remove them 
            foreach (Time t in times)
@@ -66,10 +69,18 @@ namespace LaytonTours.Controllers
 
            ViewBag.Times = times;
 
+
             return View();
         }
 
         [HttpGet("SignUp")]
+
+        public IActionResult SignUp()
+        {
+            ViewBag.Times = times;
+            // Uncomment once code is ready - return View(Time.getAvailableTimes());
+            return View();
+
         [HttpGet("signup/{timeID:int}")]
         public IActionResult SignUp(int timeID)
         {
@@ -98,11 +109,23 @@ namespace LaytonTours.Controllers
          .Where(l => l.AppointmentId > 0)
          .Take(1).SingleOrDefault();
             return nextEntities != null ? nextEntities.AppointmentId : 0;
+
         }
 
         [HttpPost("SignUp")]
         public IActionResult SignUp(Appointment appointment)
         {
+
+            ViewBag.Times = times;
+            if (ModelState.IsValid)
+            {
+
+                return View("ViewAppointments");
+            }
+
+            return View();
+            // Uncomment once code is ready - return View(Time.getAvailableTimes());
+
             
             // If this appointment matches the ModelState, push to database
             if (ModelState.IsValid)
@@ -115,6 +138,7 @@ namespace LaytonTours.Controllers
             // Else return user to form page to fix errors
             return View(appointment);
           
+
         }
     }
 }
