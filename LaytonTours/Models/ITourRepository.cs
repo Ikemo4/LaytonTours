@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LaytonTours.Models
 {
-    public class ITourRepository
+    public interface ITourRepository
     {
         IQueryable<Appointment> Appointments { get; }
     }

@@ -11,16 +11,19 @@ namespace LaytonTours.Controllers
 {
     public class HomeController : Controller
     {
-        private ITourRepository _repository;
+        
         private readonly ILogger<HomeController> _logger;
         private List<Time> times = new List<Time>();
+        private ITourRepository _repository;
+        private ToursDbContext _context;
 
 
 
-        public HomeController(ILogger<HomeController> logger, ITourRepository repository)
+        public HomeController(ILogger<HomeController> logger, ITourRepository repository, ToursDbContext context)
         {
             _logger = logger;
             _repository = repository;
+            _context = context;
              
             
 
@@ -52,30 +55,65 @@ namespace LaytonTours.Controllers
 
         public IActionResult ViewAppointments()
         {
-            ViewBag.Times = times;
+            
+           // Iterate through and make sure any appointments in these times exist in the database, otherwise remove them 
+           foreach (Time t in times)
+            {
+                if (!_repository.Appointments.Any(a => a.AppointmentId == t.AppointmentID)) {
+                    t.AppointmentID = null;
+                }
+            }
+
+           ViewBag.Times = times;
+
             return View();
         }
 
         [HttpGet("SignUp")]
-        public IActionResult SignUp()
+        public IActionResult SignUp(int timeID)
         {
-            ViewBag.Times = times;
-            // Uncomment once code is ready - return View(Time.getAvailableTimes());
-            return View();
+            // Get time object from TimeID
+            Time time = times.Find(i => i.TimeID == timeID);
+            // Check that this time is empty, otherwise send them back to the view appointments page.
+            if (time.AppointmentID!=null) { 
+            // Create a new apppointment and hook up the timeId to match the appointmentID
+            // Ideally we will want to port this to the database to handle once we create a database object  for time
+            Appointment appointment = new Appointment();
+            appointment.TimeID = timeID;
+            appointment.AppointmentId = getNextId();
+            
+            time.AppointmentID = appointment.AppointmentId;
+            
+
+            return View(appointment);
+            }
+            return View("ViewAppointments");
+        }
+
+        // Method to get the next PrimaryKey id
+        private int getNextId()
+        {
+            var nextEntities = _repository.Appointments.OrderBy(d => d.AppointmentId)
+         .Where(l => l.AppointmentId > 0)
+         .Take(1).SingleOrDefault();
+            return nextEntities != null ? nextEntities.AppointmentId : 0;
         }
 
         [HttpPost("SignUp")]
         public IActionResult SignUp(Appointment appointment)
         {
-            ViewBag.Times = times;
+            
+            // If this appointment matches the ModelState, push to database
             if (ModelState.IsValid)
             {
 
+                _context.Add(appointment);
+
                 return View("ViewAppointments");
             }
-
-            return View();
-            // Uncomment once code is ready - return View(Time.getAvailableTimes());
+            // Else return user to form page to fix errors
+            return View(appointment);
+          
         }
     }
 }
