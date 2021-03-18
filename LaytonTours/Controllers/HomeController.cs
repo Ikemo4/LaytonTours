@@ -31,16 +31,25 @@ namespace LaytonTours.Controllers
         // Used to generate times
         DateTime currentDate = DateTime.Now;
 
-            int startTime = 4;
+            
             int objectsCreated = 0;
+          
 
             for (int days = 0; days < 7; days++)
             {
-                for (int hours = 0; hours < 3; hours++)
+                int startTime = 8;
+                string timetype = "AM";
+                for (int hours = 0; hours < 12; hours++)
                 {
                     Time newTime = new Time();
                     newTime.Date = currentDate.AddDays(days).ToString("dd/MM/yyyy");
-                    newTime.ScheduledTime = (startTime + hours).ToString() + ":00 PM";
+                    newTime.ScheduledTime = (startTime + hours).ToString() + ":00 " + timetype;
+                    if ((startTime + hours) == 12)
+                    {
+                        timetype = "PM";
+                        newTime.ScheduledTime = (startTime + hours).ToString() + ":00 " + timetype;
+                        startTime = 0-hours;
+                    }
                     newTime.TimeID = objectsCreated;
                     objectsCreated++;
                     times.Add(newTime);
@@ -102,7 +111,7 @@ namespace LaytonTours.Controllers
 
             return View(appointment);
             }
-            return View("ViewAppointments");
+            return View("SignUp");
         }
 
         // Method to get the next PrimaryKey id
