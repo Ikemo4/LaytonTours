@@ -12,14 +12,14 @@ namespace LaytonTours.Controllers
     public class HomeController : Controller
     {
 
-        
+        // Intialize variables we will need like the logger, the repository, our time list, and the context
         private readonly ILogger<HomeController> _logger;
         private List<Time> times = new List<Time>();
         private ITourRepository _repository;
         private ToursDbContext _context;
 
 
-
+        // When a new homecontroller is created, pass in the needed variables
         public HomeController(ILogger<HomeController> logger, ITourRepository repository, ToursDbContext context)
         {
             _logger = logger;
@@ -34,7 +34,7 @@ namespace LaytonTours.Controllers
             
             int objectsCreated = 0;
           
-
+            // This will loop through 7 days and make appropiate timeslots over the 12 hours starting at 8am and the the last timeslot at 7pm
             for (int days = 0; days < 7; days++)
             {
                 int startTime = 8;
@@ -44,6 +44,7 @@ namespace LaytonTours.Controllers
                     Time newTime = new Time();
                     newTime.Date = currentDate.AddDays(days).ToString("dd/MM/yyyy");
                     newTime.ScheduledTime = (startTime + hours).ToString() + ":00 " + timetype;
+                    // Use to swap from AM to PM
                     if ((startTime + hours) == 12)
                     {
                         timetype = "PM";
@@ -58,15 +59,17 @@ namespace LaytonTours.Controllers
 
         }
 
+        
         public IActionResult Index()
         {
-            ViewBag.Times = times;
+            // Was used for testing purposes
+            // ViewBag.Times = times;
             return View();
         }
 
         public IActionResult ViewAppointments()
         {
-
+            // Create a new iterable enumeration of appointments, ordered by AppointmentId
             IEnumerable<Appointment> appointments = _repository.Appointments.OrderBy(a => a.AppointmentId);
           
 
@@ -77,7 +80,8 @@ namespace LaytonTours.Controllers
         [HttpGet("SignUp")]
         public IActionResult SignUp()
         {
-            ViewBag.Times = times;
+            
+            
 
             // Iterate through and make sure any appointments in these times exist in the database, otherwise remove them 
             foreach (Time t in times)
@@ -98,8 +102,10 @@ namespace LaytonTours.Controllers
                 }
             }
 
+
+            // When going to the intial sign up page, make sure the viewbag has the times list
             ViewBag.Times = times;
-            // Uncomment once code is ready - return View(Time.getAvailableTimes());
+            
             return View();
         }
 
@@ -111,7 +117,7 @@ namespace LaytonTours.Controllers
             // Check that this time is empty, otherwise send them back to the view appointments page.
             if (time!=null && time.AppointmentID==null) { 
             // Create a new apppointment and hook up the timeId to match the appointmentID
-            // Ideally we will want to port this to the database to handle once we create a database object  for time
+            // Ideally we will want to port this to the database to handle once we create a database object for time
             Appointment appointment = new Appointment();
             appointment.TimeID = timeID;
             appointment.AppointmentId = getNextId();
