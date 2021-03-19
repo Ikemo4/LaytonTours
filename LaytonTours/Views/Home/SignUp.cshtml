@@ -13,9 +13,11 @@ info.-->
     @foreach (var time in ViewBag.Times)
     {
 
-        @if (time.AppointmentId == null)
+        @if (time.AppointmentID == null)
         {
-            <a href="/@time.TimeId" class="btn btn-primary"> Setup appointment</a>
+            <li>
+                <a href="/signup/@time.TimeID" class="btn btn-primary">@time.Date - @time.ScheduledTime</a>
+            </li>
         }
         else
         {

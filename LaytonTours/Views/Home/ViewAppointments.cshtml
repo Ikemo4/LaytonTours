@@ -2,3 +2,16 @@
     ViewData["Title"] = "- Appointments";
     ViewData["Header1"] = "Your Appointments";
 }
+
+@model IEnumerable<LaytonTours.Models.Appointment>
+
+<ul>
+
+    @foreach (LaytonTours.Models.Appointment a in Model)
+    {
+
+        <li>
+            @a.AppointmentId - @a.GroupSize
+        </li>
+    }
+</ul>
