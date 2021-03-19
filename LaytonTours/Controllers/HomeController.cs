@@ -123,11 +123,13 @@ namespace LaytonTours.Controllers
             appointment.AppointmentId = getNextId();
             
             time.AppointmentID = appointment.AppointmentId;
-            
 
-            return View(appointment);
+                ViewBag.Times = times;
+                ViewBag.AppointmentTime = time;
+                return View(appointment);
             }
-            return View("SignUp");
+
+            return RedirectToAction("SignUp");
         }
 
         // Method to get the next PrimaryKey id
