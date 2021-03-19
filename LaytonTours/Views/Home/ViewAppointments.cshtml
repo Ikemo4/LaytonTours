@@ -3,15 +3,19 @@
     ViewData["Header1"] = "Your Appointments";
 }
 
+<!--Import appointment model as an enumerable for iterations -->
+
 @model IEnumerable<LaytonTours.Models.Appointment>
 
 <ul>
+
+    <!--Display appointments-->
 
     @foreach (LaytonTours.Models.Appointment a in Model)
     {
 
         <li>
-            Appointment #: @a.AppointmentId
+            Appointment #: @a.AppointmentId -
             <ul>
                 <li>Group Name: @a.GroupName</li>
                 <li>Group Size: @a.GroupSize</li>
