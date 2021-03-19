@@ -88,6 +88,16 @@ namespace LaytonTours.Controllers
                 }
             }
 
+            // Since we arent using a database for the times, we need to update them from the appointment database
+            foreach (Appointment a in _repository.Appointments)
+            {
+                Time time = times.Find(i => i.TimeID == a.TimeID);
+                if (time != null)
+                {
+                    time.AppointmentID = a.AppointmentId;
+                }
+            }
+
             ViewBag.Times = times;
             // Uncomment once code is ready - return View(Time.getAvailableTimes());
             return View();
@@ -134,8 +144,9 @@ namespace LaytonTours.Controllers
             {
 
                 _context.Add(appointment);
+                _context.SaveChanges();
 
-                return View("ViewAppointments");
+                return RedirectToAction("ViewAppointments");
             }
             // Else return user to form page to fix errors
             return View(appointment);
