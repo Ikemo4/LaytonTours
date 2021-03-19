@@ -10,6 +10,8 @@ namespace LaytonTours.Models
 {
     public class SeedData
     {
+        //Ensure populated method to automatically migrate pending migrations
+        //and populate database with appointment if none exist
         public static void EnsurePopulated(IApplicationBuilder application)
         {
             ToursDbContext context = application.ApplicationServices.CreateScope()
