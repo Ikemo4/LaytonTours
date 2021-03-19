@@ -16,6 +16,10 @@ returned to the Home Page.-->
 
 <form asp-action="Form" method="post">
     <div>
+        <h5>Time Slot:</h5>
+        <p>@ViewBag.AppointmentTime.Date - @ViewBag.AppointmentTime.ScheduledTime</p>
+    </div>
+    <div>
         <label asp-for="GroupName">Group Name:</label>
         <input asp-for="GroupName" />
     </div>
